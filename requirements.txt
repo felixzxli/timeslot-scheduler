@@ -1,0 +1,9 @@
+certifi==2023.7.22
+cffi==1.15.1
+numpy==1.26.0
+protobuf==4.21.12
+pycparser @ file:///private/tmp/pycparser-20230831-5825-v2kl0l/pycparser-2.21
+Pygments @ file:///private/tmp/pygments-20230806-5921-1vpw7cv/Pygments-2.16.1
+PyYAML @ file:///private/tmp/pyyaml-20230717-6270-1iiwi1j/PyYAML-6.0.1
+scipy==1.11.3
+six==1.16.0
