@@ -1,9 +1,15 @@
+asgiref==3.7.2
 certifi==2023.7.22
 cffi==1.15.1
+Django==4.2.6
+django-cors-headers==4.3.0
+djangorestframework==3.14.0
 numpy==1.26.0
 protobuf==4.21.12
 pycparser @ file:///private/tmp/pycparser-20230831-5825-v2kl0l/pycparser-2.21
 Pygments @ file:///private/tmp/pygments-20230806-5921-1vpw7cv/Pygments-2.16.1
+pytz==2023.3.post1
 PyYAML @ file:///private/tmp/pyyaml-20230717-6270-1iiwi1j/PyYAML-6.0.1
 scipy==1.11.3
 six==1.16.0
+sqlparse==0.4.4
