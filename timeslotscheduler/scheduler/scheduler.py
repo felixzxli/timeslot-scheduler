@@ -1,7 +1,9 @@
 import itertools
 from pprint import pprint
 from collections import deque
-from test import get_lists
+
+# from . import test
+import test
 
 
 class Scheduler:
@@ -11,32 +13,49 @@ class Scheduler:
 
 # brute force algorithm
 # input:
-#       dictionary courses: {courseID: [timeslot1, timeslot2, ...] ...}
-#               where timeslot is of the form [startTime, endTime]
+#       dictionary courses: {courseID: [[timeslot1, timeslot2, ...], [days]] ...}
+#               where timeslot is of the form [startTime, endTime, days],
+#               days is of the form, for example, [1, 2, 3, 7]
+#                   for Mon, Tues, Wed, and Sun,
 #               and startTime and endTime are in minutes [0, 1440)
 #       list blockcades: [[start, end]]
 #               of blockades
-# output: {courseID: timeslot} (array of timeslots in an optimal order)
+# output: {courseID: [timeslot, days]} (dict of timeslots with days in an optimal order)
+# TODO: add tolerance, blockades, etc
 def schedule(courses, tolerance, blockcades):
-    timeslot_list = list(courses.values())
+    values = list(courses.values())
+    timeslot_list = []
+    for [timeslots, days] in values:
+        row = []
+        for timeslot in timeslots:
+            row.append((timeslot, days))
+        timeslot_list.append(row)
+
     solns = list(itertools.product(*timeslot_list))
+    # pprint(solns)
     minDistance = float("inf")
     optimal_soln = -1
     for i, soln in enumerate(solns):
-        soln = sorted(soln, key=lambda x: x[0])
-        lastend = 0
-        dist = 0
+        sorted_soln = sorted(soln, key=lambda x: x[0][0])  # x is [timeslot, day]
+        total_dist = 0
         # pprint(soln)
         # print("\n")
-        for interval in soln:
-            if interval[0] < lastend:
-                dist = float("inf")
-                break
-            dist += interval[0] - lastend
-            lastend = interval[1]
+        for day in range(1, 8):
+            lastend = 0
+            dist = 0
+            for [interval, days] in sorted_soln:
+                if day not in days:
+                    continue
+                if interval[0] < lastend:
+                    dist = float("inf")
+                    break
+                dist += interval[0] - lastend
+                lastend = interval[1]
 
-        if dist < minDistance:
-            minDistance = dist
+            total_dist += dist
+
+        if total_dist < minDistance:
+            minDistance = total_dist
             optimal_soln = i
 
     if optimal_soln < 0:
@@ -46,16 +65,9 @@ def schedule(courses, tolerance, blockcades):
         ret = {}
         for i, course_id in enumerate(courses.keys()):
             ret[course_id] = schedule[i]
-        pprint(ret)
         return ret
 
 
-courses = {
-    "cs": [[500, 600], [100, 200]],
-    "math123": [[100, 200], [300, 400]],
-}
-schedule(courses, None, None)
-
-# lists = get_lists()
-# pprint(lists)
-# schedule(lists, None, None)
+# lists = test.get_list1()
+# ret = schedule(lists, None, None)
+# pprint(ret)

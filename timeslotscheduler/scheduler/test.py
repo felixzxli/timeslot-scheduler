@@ -26,3 +26,23 @@ def get_lists():
         ret[generate_random_string()] = slots
 
     return ret
+
+
+def get_list1():
+    lists = {
+        "cs486": [[[690, 770], [510, 590]], [2, 4]],
+        "cs451": [[[780, 860]], [2, 4]],
+        "cs370": [[[960, 1040], [600, 680], [870, 950]], [1, 3]],
+        "sci206": [[[1050, 1130]], [1, 3]],
+        "china202r": [[[870, 950]], [1, 3]],
+    }
+    return lists
+
+
+list = [
+    "cs486",
+    "cs451",
+    "cs370",
+    "sci206",
+    "china202r",
+]
