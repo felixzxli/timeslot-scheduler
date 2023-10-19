@@ -5,11 +5,9 @@ from . import waterloo
 from scheduler import scheduler, test
 
 
-# request.data should contain courses
 @api_view(["GET", "POST"])
 def schedule(request):
     if request.method == "GET":
-        # TODO: replace with scraper call
         # expect a list of course codes
         course_codes = request.query_params.getlist("course")
         term_code = waterloo.get_current_term()
