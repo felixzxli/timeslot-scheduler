@@ -12,15 +12,10 @@ def schedule(request):
         # TODO: replace with scraper call
         # expect a list of course codes
         course_codes = request.query_params.getlist("course")
-        classes = test.get_list1()
-        schedule = scheduler.schedule(classes, None, None)
         term_code = waterloo.get_current_term()
-        classes = waterloo.get_class_info_list()
-        print(course_codes)
-
-        # return Response(json.dumps(schedule))
-        # return Response(course_codes)
-        return Response(course_codes)
+        classes = waterloo.get_class_info_list(course_codes, term_code)
+        schedule = scheduler.schedule(classes, None, None)
+        return Response(schedule)
 
     elif request.method == "POST":
         return Response("nothing at the moment", status=status.HTTP_400_BAD_REQUEST)
